@@ -15,23 +15,23 @@ class Graph
     maxint = (2**(0.size * 8 -2) -1) # our representation of infinity
     distances = {}
     previous = {}
-    results = PriorityQueue.new
+    nodes = PriorityQueue.new
 
     # initialisation
     @vertices.each do |vertex, _|
       if vertex == start
         distances[vertex] = 0
-        results[vertex] = 0
+        nodes[vertex] = 0
       else
         distances[vertex] = maxint
-        results[vertex] = maxint
+        nodes[vertex] = maxint
       end
       previous[vertex] = nil
     end
 
     # finding the shortest path
-    while results
-      smallest = results.delete_min_return_key
+    while nodes
+      smallest = nodes.delete_min_return_key
 
       # check if we have reached our finish goal
       if smallest == finish
@@ -53,7 +53,7 @@ class Graph
 
         if alt < distances[neighbor]
           distances[neighbor] = alt
-          results[neighbor] = alt
+          nodes[neighbor] = alt
           previous[neighbor] = smallest
         end
 
