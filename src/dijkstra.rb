@@ -28,15 +28,25 @@ class Graph
     end
 
     # finding the shortest path
-    while nodes
+    while results
       smallest = results.delete_min_return_key
+
+      # check if we have reached our finish goal
+      if smallest == finish
+        path = []
+        while previous[smallest]
+          path.push(smallest)
+          smallest = previous[smallest]
+        end
+        return path
+      end
 
       if smallest == nil || distances[smallest] == maxint
         break
       end
 
       @vertices[smallest].each do |neighbor, value|
-        alt = distances[neighbor] + distances[smallest]
+        alt = distances[smallest] + value
 
         if alt < distances[neighbor]
           distances[neighbor] = alt
@@ -64,3 +74,7 @@ g.add_vertex('E', {'H' => 1})
 g.add_vertex('F', {'B' => 2, 'C' => 6, 'D' => 8, 'G' => 9, 'H' => 3})
 g.add_vertex('G', {'C' => 4, 'F' => 9})
 g.add_vertex('H', {'E' => 1, 'F' => 3})
+
+puts g.shortest_path("A", "F")
+puts "-------"
+puts g.shortest_path("A", "H")
