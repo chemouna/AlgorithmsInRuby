@@ -1,7 +1,9 @@
 require 'priority_queue'
 
+# Dijkstra's implementation using the heap method
+
 class Graph
-  def initialize()
+  def initialize
     @vertices = {}
   end
 
@@ -45,6 +47,7 @@ class Graph
         break
       end
 
+      # relaxation step
       @vertices[smallest].each do |neighbor, value|
         alt = distances[smallest] + value
 
@@ -56,11 +59,11 @@ class Graph
 
       end
     end
-    return distances.inspect
+    distances.inspect
   end
 
   def to_s
-    return @vertices.inspect
+    @vertices.inspect
   end
 end
 
@@ -76,5 +79,5 @@ g.add_vertex('G', {'C' => 4, 'F' => 9})
 g.add_vertex('H', {'E' => 1, 'F' => 3})
 
 puts g.shortest_path("A", "F")
-puts "-------"
+puts '-------'
 puts g.shortest_path("A", "H")
